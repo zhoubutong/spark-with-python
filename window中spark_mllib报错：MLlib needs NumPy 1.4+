@@ -1,5 +1,6 @@
-#使用NumPy高版本时由于mllilb的bug，版本匹配时，if numpy.version.version < '1.4':
+#使用NumPy高版本时由于mllilb的bug，版本匹配时，if numpy.version.version < '1.4':　这种字符串比较方式导致了1.10<1.4;
 #而我们用的是1.10+，因此修改init文件，路径为 /spark/python/pyspark/mllib/__init__.py
+#不要去手工去找文件哦，因为要修改的不止是一个__init__.py，应当使用everything把所有文件夹中包含/mllib/__init__.py统统修改
 """
 RDD-based machine learning APIs for Python (in maintenance mode).
 The `pyspark.mllib` package is in maintenance mode as of the Spark 2.0.0 release to encourage
@@ -10,7 +11,7 @@ from __future__ import absolute_import
 # MLlib currently needs NumPy 1.4+, so complain if lower
 
 import numpy
-
+#其实仅仅需要从规则这里复制，然后黏贴到对应位置就可以了，你对比下源文件就会发现这点
 ver = [int(x) for x in numpy.version.version.split('.')[:2]]
 if ver < [1, 4]:
     raise Exception("MLlib requires NumPy 1.4+")
